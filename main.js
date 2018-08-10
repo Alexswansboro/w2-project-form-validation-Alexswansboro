@@ -1,46 +1,30 @@
 document.getElementById('parking-form').addEventListener('submit', function (event) {
     event.preventDefault()
 
-    
-
-    var name = document.getElementById('name').value.trim()
-
-    if (name === '') {
-        showEmptyFieldError()
-        errorOnSubmit()
-    } else {
-        var createEmptyDiv = document.createElement('div')
-        createEmptyDiv.classList.add('greeting')
-        createEmptyDiv.innerText = 'Hello, ' + name
-
-        var greetingParent = document.getElementById('name-field')
-        greetingParent.appendChild(createEmptyDiv)
-        appendChild.classList.add('name-message')
-
-        clearError()
+    function validate(){
+        var inputFieldsArray = document.querySelectorAll('.input-field')
+        // console.log(inputFieldsArray)
+        for(var i = 0; i < inputFieldsArray.length; i++){
+            var inputField = inputFieldsArray[i]
+            // console.log("inputField", inputField)  
+            var inputsArray = inputField.querySelectorAll('input')
+            // console.log('inputsArray', inputsArray) 
+            for(var j = 0; j < inputsArray.length; j++){
+                var input = inputsArray[j]
+                // console.log('input', input)
+                if(input.value.trim() === ""){
+                    inputField.classList.add('input-invalid')
+                    console.log("red")
+                }else{
+                    inputField.classList.add('input-valid')
+                    console.log("green")
+                }
+            }
+        }
     }
+    function listenForSubmit(){
+        var submitButton = document.getElementById('submit-button')
+        submitButton.addEventListener("click", validate())
+    }
+    listenForSubmit()
 })
-
-function showEmptyFieldError(){
-    var createChild = document.createElement('div')
-    createChild.classList.add('error-message')
-    createChild.innerText = 'Name is Required'
-
-    var name = document.getElementById('name-field')
-    name.appendChild(createChild)
-    name.classList.add('error input-invalid')
-}
-
-function errorOnSubmit() {
-    var noticeOfErrorOnSubmit = document.createElement('div')
-    noticeOfErrorOnSubmit.classList.add('error-message')
-    noticeOfErrorOnSubmit.innerText = 'You Are Missing Some Information'
-
-    var name = document.getElementById('input-field')
-    name.appendChild(createChild)
-    appendChild.classList.add('error')
-}
-function clearError () {
-    var field = document.getElementById('name')
-    field.classList.remove('error')
-  }
