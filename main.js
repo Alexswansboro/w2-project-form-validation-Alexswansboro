@@ -7,6 +7,7 @@ document.getElementById('parking-form').addEventListener('submit', function (eve
     creditCard()
     CVV()
     expiration()
+    car()
 })
 
 function validate() {
@@ -27,24 +28,25 @@ function validate() {
                 inputField.classList.add('input-valid')
                 // console.log("green")
             }
-        }  
-      
+        }
+
     }
 }
 
-function nameErrorMessage(){
+function nameErrorMessage() {
     var findName = document.getElementById('name-field')
-        if (findName.classList.contains("input-invalid")){
-            var createDiv = document.createElement('div')
-            createDiv.classList.add('error-message')
-            createDiv.innerText = "Name Field is Required"
-            console.log('name message', createDiv)
-            findName.appendChild(createDiv)
+    if (findName.classList.contains("input-invalid")) {
+        var createDiv = document.createElement('div')
+        createDiv.classList.add('error-message')
+        createDiv.innerText = "Name Field is Required"
+        console.log('name message', createDiv)
+        findName.appendChild(createDiv)
     }
 }
-function dateOfParking(){
+
+function dateOfParking() {
     var findDate = document.getElementById('start-date-field')
-    if (findDate.classList.contains('input-invalid')){
+    if (findDate.classList.contains('input-invalid')) {
         var createDateDiv = document.createElement('div')
         createDateDiv.classList.add('error-message')
         createDateDiv.innerText = 'Date is Required'
@@ -52,9 +54,9 @@ function dateOfParking(){
     }
 }
 
-function days(){
+function days() {
     var daysOfParking = document.getElementById('days-field')
-    if (daysOfParking.classList.contains('input-invalid')){
+    if (daysOfParking.classList.contains('input-invalid')) {
         var createDaysDiv = document.createElement('div')
         createDaysDiv.classList.add('error-message')
         createDaysDiv.innerText = 'How Many Days Will You Be Parking?'
@@ -62,9 +64,9 @@ function days(){
     }
 }
 
-function creditCard(){
+function creditCard() {
     var creditCardID = document.getElementById('credit-card-field')
-    if (creditCardID.classList.contains('input-invalid')){
+    if (creditCardID.classList.contains('input-invalid')) {
         var createCardDiv = document.createElement('div')
         createCardDiv.classList.add('error-message')
         createCardDiv.innerText = "You Must Enter A Credit Card Number"
@@ -72,9 +74,9 @@ function creditCard(){
     }
 }
 
-function CVV(){
+function CVV() {
     var cvvId = document.getElementById('cvv-field')
-    if(cvvId.classList.contains('input-field')){
+    if (cvvId.classList.contains('input-field')) {
         var createCVVDiv = document.createElement('div')
         createCVVDiv.classList.add('error-message')
         createCVVDiv.innerText = "CVV Number Required"
@@ -82,12 +84,31 @@ function CVV(){
     }
 }
 
-function expiration(){
+function expiration() {
     var expirationField = document.getElementById('expiration-field')
-    if(expirationField.classList.contains('input-invalid')){
+    if (expirationField.classList.contains('input-invalid')) {
         var createExpirationDiv = document.createElement('div')
         createExpirationDiv.classList.add('error-message')
         createExpirationDiv.innerText = "Credit Card Expiration Required"
         expirationField.appendChild(createExpirationDiv)
+    }
+}
+
+function car() {
+    var carFieldArray = document.getElementsByClassName('input-group')
+    for (var c = 0; c < carFieldArray.length; c++) {
+        var individualInput = carFieldArray[c]
+        // console.log("inputField", inputField)  
+        var inputsArray = inputGroup.querySelectorAll('input')
+        // console.log('inputsArray', inputsArray) 
+        for (var j = 0; j < inputsArray.length; j++) {
+            var input = inputsArray[j]
+            if (individualInput.classList.contains('input-invalid')) {
+                var createCarDiv = document.createElement('div')
+                createCarDiv.classList.add('error-message')
+                createCarDiv.innerText = "This field must be completed"
+                input.appendChild(createCarDiv)
+            }
+        }
     }
 }
