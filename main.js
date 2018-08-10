@@ -10,6 +10,18 @@ document.getElementById('parking-form').addEventListener('submit', function (eve
     car()
 })
 
+var inputErrorMessages = {
+    "name": "Missing",
+    "car-year": "Missing Car Year",
+    "car-make": "Missing Car Make",
+    "car-model": "Missing Car Model",
+    "start-date": "Missing",
+    "days": "Missing",
+    "credit-card": "Missing",
+    "cvv": "Missing",
+    "expiration": "Missing",
+}
+
 function validate() {
     var inputFieldsArray = document.querySelectorAll('.input-field')
     // console.log(inputFieldsArray)
@@ -24,6 +36,13 @@ function validate() {
             if (input.value.trim() === "") {
                 inputField.classList.add('input-invalid')
                 // console.log("red")
+                // console.log("input", input)
+                // console.log("input.id", input.id)
+                // var createInputDiv = document.createElement('div')
+                // createInputDiv.classList.add('error-message')
+                // var inputErrorMessage = inputErrorMessages[input.id]
+                // createInputDiv.innerText = inputErrorMessage
+                // inputField.appendChild(createInputDiv)
             } else {
                 inputField.classList.add('input-valid')
                 // console.log("green")
@@ -76,7 +95,7 @@ function creditCard() {
 
 function CVV() {
     var cvvId = document.getElementById('cvv-field')
-    if (cvvId.classList.contains('input-field')) {
+    if (cvvId.classList.contains('input-invalid')) {
         var createCVVDiv = document.createElement('div')
         createCVVDiv.classList.add('error-message')
         createCVVDiv.innerText = "CVV Number Required"
@@ -89,26 +108,49 @@ function expiration() {
     if (expirationField.classList.contains('input-invalid')) {
         var createExpirationDiv = document.createElement('div')
         createExpirationDiv.classList.add('error-message')
-        createExpirationDiv.innerText = "Credit Card Expiration Required"
+        // var inputErrorMessage = inputErrorMessages[input.id]
+        var inputErrorMessage = "Credit Card Expiration Required"
+        createExpirationDiv.innerText = inputErrorMessage;
         expirationField.appendChild(createExpirationDiv)
     }
 }
 
 function car() {
-    var carFieldArray = document.getElementsByClassName('input-group')
-    for (var c = 0; c < carFieldArray.length; c++) {
-        var individualInput = carFieldArray[c]
-        // console.log("inputField", inputField)  
-        var inputsArray = inputGroup.querySelectorAll('input')
-        // console.log('inputsArray', inputsArray) 
-        for (var j = 0; j < inputsArray.length; j++) {
-            var input = inputsArray[j]
-            if (individualInput.classList.contains('input-invalid')) {
-                var createCarDiv = document.createElement('div')
-                createCarDiv.classList.add('error-message')
-                createCarDiv.innerText = "This field must be completed"
-                input.appendChild(createCarDiv)
-            }
+    var carFieldElement = document.getElementById('car-field')
+    var inputsArray = carFieldElement.querySelectorAll('input')
+    console.log('inputsArray', inputsArray) 
+    for (var j = 0; j < inputsArray.length; j++) {
+        var input = inputsArray[j]
+        if (carFieldElement.classList.contains('input-invalid')) {
+            console.log("input", input)
+            console.log("input.id", input.id)
+            var createInputDiv = document.createElement('div')
+            createInputDiv.classList.add('error-message')
+            createInputDiv.id = input.id + '-error-message'
+            var inputErrorMessage = inputErrorMessages[input.id]
+            createInputDiv.innerText = inputErrorMessage
+            carFieldElement.appendChild(createInputDiv)
         }
     }
 }
+
+// ldslkdfsjkdfskjldfslkdfslksdfalk
+
+// function car() {
+//     var carFieldElement = document.getElementById('car-field')
+//     var inputsArray = carFieldElement.querySelectorAll('input')
+//     console.log('inputsArray', inputsArray) 
+//     for (var j = 0; j < inputsArray.length; j++) {
+//         var input = inputsArray[j]
+//         if (input.value.trim() === '') {
+//             console.log("input", input)
+//             console.log("input.id", input.id)
+//             var createInputDiv = document.createElement('div')
+//             createInputDiv.classList.add('error-message')
+//             createInputDiv.id = input.id + '-error-message'
+//             var inputErrorMessage = inputErrorMessages[input.id]
+//             createInputDiv.innerText = inputErrorMessage
+//             carFieldElement.appendChild(createInputDiv)
+//         }
+//     }
+// }
