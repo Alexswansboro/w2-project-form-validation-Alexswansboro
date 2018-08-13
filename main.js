@@ -10,6 +10,7 @@ document.getElementById('parking-form').addEventListener('submit', function (eve
     // car()
 })
 var maxCarYear = ((new Date()).getFullYear() + 1);
+var today = new Date ()
 var inputErrorMessages = {
     "name": "Missing Name",
     "car-year": "Car Year must be between 1900 and " + maxCarYear,
@@ -31,9 +32,11 @@ function validate() {
             var input = inputsArray[j]
             
             if (!inputPresenceValid(input)) {
-                creatErrorMessage(input, inputField)
+                createErrorMessage(input, inputField)
             } else if (input.id === "car-year" && !validCarYear()) {
-                creatErrorMessage(input, inputField)
+                createErrorMessage(input, inputField)
+            } else if (parkingDateInput() < today) { 
+                createErrorMessage(input, inputField)
             } else {
                 removeErrorMessage(input)
             }
@@ -42,6 +45,14 @@ function validate() {
                 if (validCarYear() && inputPresenceValid(input)){
                     makeInputFieldValid(inputField)
                 } else {
+                    makeInputFieldInvalid(inputField)
+                }
+            } else if (inputField.id === "start-date-field"){
+                // console.log("date valid")
+                if(parkingDateInput() > today){
+                    makeInputFieldValid(inputField)
+                } else {
+                    console.log("input field invalid")
                     makeInputFieldInvalid(inputField)
                 }
             } else {
@@ -54,7 +65,8 @@ function validate() {
         }
     }
 }
-function creatErrorMessage(input, inputField){
+
+function createErrorMessage(input, inputField){
     var errorMessageID = input.id + '-error-message'
     if (!document.getElementById(errorMessageID)){
         var createInputDiv = document.createElement('div')
@@ -84,8 +96,6 @@ function inputPresenceValid(inputElm) {
     // var input = document.getElementById(inputId)
     return inputElm.value.trim() !== ""
 }
-
-
 function validCarYear() {
     var input = document.getElementById('car-year');
     var carYearValue = input.value
@@ -94,4 +104,13 @@ function validCarYear() {
     // console.log('carYearNumber', carYearNumber);
     return (Number.isInteger(carYearNumber) && 1900 < carYearNumber && carYearNumber <= maxCarYear)
 }
+function parkingDateInput() {
+    var parkingDateInput = document.getElementById('start-date').value
+    return new Date(parkingDateInput)
+}
+
+function inputValue(inputId) {
+    return document.getElementById(inputId).value
+}
+
 
